@@ -1,0 +1,22 @@
+.task-list {
+    position: relative;
+    z-index: 2;
+    border-top: 1px solid #e6e6e6;
+}
+
+.task-list {
+margin: 0;
+padding: 0;
+list-style: none;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+.toggle-all,
+.task-list li .toggle {
+    background: none;
+}
+
+.task-list li .toggle {
+    height: 40px;
+}
+}
