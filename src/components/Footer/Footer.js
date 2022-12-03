@@ -1,8 +1,8 @@
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 
-import TaskFilter from '../TaskFilter';
+import TaskFilter from '../TaskFilter'
 
-import './Footer.css';
+import './Footer.css'
 
 const Footer = ({ toDo, onfilterCompletedTasks, onfilterAllTasks, onfilterActiveTasks, removeAllCompletedTasks }) => {
   return (
@@ -17,10 +17,10 @@ const Footer = ({ toDo, onfilterCompletedTasks, onfilterAllTasks, onfilterActive
         Clear completed
       </button>
     </footer>
-  );
+  )
 }
 
-export default Footer;
+export default Footer
 
 Footer.propTypes = {
   toDo: PropTypes.number,
@@ -28,4 +28,4 @@ Footer.propTypes = {
   onfilterAllTasks: PropTypes.func,
   onfilterActiveTasks: PropTypes.func,
   removeAllCompletedTasks: PropTypes.func,
-};
+}

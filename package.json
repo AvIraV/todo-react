@@ -17,9 +17,11 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "execute-husky": "npx husky install && npx husky add .husky/pre-commit \"npx --no-install lint-staged\"",
     "lint": "eslint ./src",
     "lint:write": "eslint --debug src/ --fix --color",
-    "lint:fix": "eslint ./src --fix"
+    "lint:fix": "eslint ./src --fix",
+    "format": "prettier ./src"
   },
   "eslintConfig": {
     "extends": [
@@ -40,6 +42,9 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.20.5",
+    "@babel/eslint-parser": "^7.19.1",
+    "@babel/preset-react": "^7.18.6",
     "babel-eslint": "^10.1.0",
     "date-fns": "^2.29.3",
     "eslint": "^8.28.0",
@@ -61,8 +66,8 @@
   },
   "lint-staged": {
     "*.js": [
-      "npm run lint:fix",
-      "git add"
+      "eslint . --fix",
+      "prettier --write ."
     ]
   }
 }
