@@ -12,15 +12,16 @@ export default class App extends Component {
 
   state = {
     todoData: [
-      this.createTodoTask('Completed task'),
-      this.createTodoTask('Editing task'),
-      this.createTodoTask('Active task'),
+      this.createTodoTask('Completed', 0),
+      this.createTodoTask('Editing', 0),
+      this.createTodoTask('Active', 0),
     ],
   }
 
-  createTodoTask(label) {
+  createTodoTask(label, time) {
     return {
       label,
+      time,
       id: this.maxId++,
       completed: false,
     }
@@ -38,8 +39,8 @@ export default class App extends Component {
     })
   }
 
-  onAddTask = (text) => {
-    const newTask = this.createTodoTask(text)
+  onAddTask = (text, time) => {
+    const newTask = this.createTodoTask(text, time)
 
     this.setState(({ todoData }) => {
       const newArr = [...todoData, newTask]

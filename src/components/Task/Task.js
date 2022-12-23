@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { formatDistanceToNow } from 'date-fns'
+import { formatDistanceToNow, format } from 'date-fns'
 
 import './Task.css'
 
@@ -10,16 +10,22 @@ export default class Task extends Component {
     editing: false,
     date: new Date(),
     dateTick: '',
+    time: 0,
+    isTimeRunning: false,
   }
 
   componentDidMount() {
-    this.setState({ changedLabel: this.props.label })
+    this.setState({
+      changedLabel: this.props.label,
+      time: this.props.time,
+    })
 
-    this.timerID = setInterval(() => this.tick(), 1000)
+    this.tID = setInterval(() => this.tick(), 1000)
   }
 
   componentWillUnmount() {
-    clearInterval(this.timerID)
+    clearInterval(this.tID)
+    clearInterval(this.timerOfTask)
   }
 
   tick = () => {
@@ -50,9 +56,27 @@ export default class Task extends Component {
     })
   }
 
+  handleStartClick = () => {
+    if (!this.state.isTimeRunning) {
+      let startTime = Date.now() - this.state.time
+      this.timerOfTask = setInterval(() => {
+        this.setState({
+          time: Date.now() - startTime,
+          isTimeRunning: true,
+        })
+      }, 1000)
+    }
+  }
+
+  handleStopClick = () => {
+    clearInterval(this.timerOfTask)
+    this.setState({
+      isTimeRunning: false,
+    })
+  }
+
   render() {
     const { onDeleted, onToggleCompleted, completed } = this.props
-
     let classNames = 'task'
 
     if (completed) {
@@ -74,7 +98,12 @@ export default class Task extends Component {
         <div className="view" style={viewStyle}>
           <input className="toggle" type="checkbox" onClick={onToggleCompleted} />
           <label>
-            <span className="description">{this.state.changedLabel}</span>
+            <span className="title">{this.state.changedLabel}</span>
+            <span className="description">
+              <button className="icon icon-play" onClick={this.handleStartClick}></button>
+              <button className="icon icon-pause" onClick={this.handleStopClick}></button>
+              <p className="time">{format(this.state.time, 'mm:ss')}</p>
+            </span>
             <span className="created">
               created
               {formatDistanceToNow(this.state.date, { includeSeconds: true })}
@@ -102,4 +131,6 @@ Task.propTypes = {
   onDeleted: PropTypes.func,
   onToggleCompleted: PropTypes.func,
   completed: PropTypes.bool,
+  label: PropTypes.string,
+  time: PropTypes.number,
 }

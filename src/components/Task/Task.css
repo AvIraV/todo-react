@@ -96,12 +96,22 @@ li label {
 	padding: 15px 85px 15px 60px;
 }
 
+li .view {
+	position: relative;
+}
+
 li label .created {
 	font-size: 13px;
 	color: gray;
 }
 
 li label .description {
+	font-size: 13px;
+	color: gray;
+}
+
+
+li label .title {
 	word-break: break-all;
 	display: block;
 	line-height: 1.2;
@@ -110,12 +120,12 @@ li label .description {
 	color: #4d4d4d;
 }
 
-li.completed label .description {
+li.completed label .title{
 	color: #cdcdcd;
 	text-decoration: line-through;
 }
 
-li .icon {
+/* li .icon {
 	position: absolute;
 	top: 0;
 	bottom: -3px;
@@ -126,6 +136,16 @@ li .icon {
 	margin: auto 0 11px;
 	transition: color 0.2s ease-out;
 	cursor: pointer;
+} */
+
+li .icon {
+	width: 30px;
+	height: 40px;
+	font-size: 34px;
+	color: #cc9a9a;
+	margin: auto 0;
+	transition: color 0.2s ease-out;
+	cursor: pointer;
 }
 
 li .icon:hover {
@@ -133,6 +153,9 @@ li .icon:hover {
 }
 
 li .icon-destroy {
+	position: absolute;
+	top: 0;
+	bottom: -3px;
 	right: 10px;
 }
 
@@ -141,6 +164,9 @@ li .icon-destroy:after {
 }
 
 li .icon-edit {
+	position: absolute;
+	top: 0;
+	bottom: -3px;
 	font-size: 19px;
 	right: 45px;
 }
@@ -149,10 +175,47 @@ li .icon-edit:after {
 	content: '✎';
 }
 
+li .icon-pause,
+li .icon-play {
+	font-size: 18px;
+	width: 18px;
+	height: 18px;
+}
+
+li .icon-play {
+	font-size: 15px;
+}
+
+.icon-pause:after {
+	content: '⏸';
+}
+
+.icon-play:after {
+	content: '▶';
+}
+
+.time {
+	display: inline-block;
+	font-size: 13px;
+    color: grey;
+	margin-left: 4px;
+}
+
 li .edit {
 	display: none;
 }
 
 li.editing:last-child {
 	margin-bottom: -1px;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	.toggle-all,
+ 	li .toggle {
+		background: none;
+	}
+
+	li .toggle {
+		height: 40px;
+	}
 }
