@@ -18,17 +18,21 @@ export default class NewTaskForm extends Component {
 
   onSubmit = (e) => {
     e.preventDefault()
-    this.props.onAddTask(this.state.label, this.transformTime())
-    this.setState({
-      label: '',
-      min: '',
-      sec: '',
-    })
+    if (this.state.label !== '') {
+      this.props.onAddTask(this.state.label, this.transformTime())
+      this.setState({
+        label: '',
+        min: '',
+        sec: '',
+      })
+    }
   }
 
   transformTime = () => {
     const { min, sec } = this.state
-    let time = (parseInt(min) * 60 + parseInt(sec)) * 1000
+    let minute = min === '' ? '0' : min
+    let secund = sec === '' ? '0' : sec
+    let time = (parseInt(minute) * 60 + parseInt(secund)) * 1000
     return time
   }
 
@@ -56,6 +60,7 @@ export default class NewTaskForm extends Component {
         />
         <input
           className="new-todo-form__timer"
+          type="number"
           placeholder="Min"
           autoFocus=""
           onChange={this.getTaskMin}
@@ -63,6 +68,7 @@ export default class NewTaskForm extends Component {
         />
         <input
           className="new-todo-form__timer"
+          type="number"
           placeholder="Sec"
           autoFocus=""
           onChange={this.getTaskSec}
