@@ -4,14 +4,14 @@ import TaskFilter from '../TaskFilter'
 
 import './Footer.css'
 
-const Footer = ({ toDo, onfilterCompletedTasks, onfilterAllTasks, onfilterActiveTasks, removeAllCompletedTasks }) => {
+const Footer = ({ todoCount, getFilterStatusFromFooter, removeAllCompletedTasks }) => {
   return (
     <footer className="footer">
-      <span className="todo-count">{toDo} items left</span>
+      <span className="todo-count">{todoCount} items left</span>
       <TaskFilter
-        onfilterCompletedTasks={() => onfilterCompletedTasks()}
-        onfilterAllTasks={() => onfilterAllTasks()}
-        onfilterActiveTasks={() => onfilterActiveTasks()}
+        onfilterAllTasks={() => getFilterStatusFromFooter('all')}
+        onfilterActiveTasks={() => getFilterStatusFromFooter('active')}
+        onfilterCompletedTasks={() => getFilterStatusFromFooter('completed')}
       />
       <button className="clear-completed" onClick={removeAllCompletedTasks}>
         Clear completed

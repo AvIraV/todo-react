@@ -8,34 +8,17 @@ export default class Task extends Component {
   state = {
     changedLabel: '',
     editing: false,
-    date: new Date(),
-    dateTick: '',
-    time: 0,
-    isTimeRunning: false,
   }
 
   componentDidMount() {
     this.setState({
       changedLabel: this.props.label,
-      time: this.props.time,
-    })
-
-    this.tID = setInterval(() => this.tick(), 1000)
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.tID)
-    clearInterval(this.timerOfTask)
-  }
-
-  tick = () => {
-    this.setState({
-      dateTick: formatDistanceToNow(this.state.date, { includeSeconds: true }),
     })
   }
 
   handleEditingDone = (e) => {
     if (e.keyCode === 13) {
+      this.props.onEditedLabel(this.state.changedLabel)
       this.setState({
         editing: false,
       })
@@ -56,27 +39,8 @@ export default class Task extends Component {
     })
   }
 
-  handleStartClick = () => {
-    if (!this.state.isTimeRunning) {
-      let startTime = Date.now() - this.state.time
-      this.timerOfTask = setInterval(() => {
-        this.setState({
-          time: Date.now() - startTime,
-          isTimeRunning: true,
-        })
-      }, 1000)
-    }
-  }
-
-  handleStopClick = () => {
-    clearInterval(this.timerOfTask)
-    this.setState({
-      isTimeRunning: false,
-    })
-  }
-
   render() {
-    const { onDeleted, onToggleCompleted, completed } = this.props
+    const { onDeleted, onToggleCompleted, completed, time, date } = this.props
     let classNames = 'task'
 
     if (completed) {
@@ -96,17 +60,17 @@ export default class Task extends Component {
     return (
       <li className={classNames}>
         <div className="view" style={viewStyle}>
-          <input className="toggle" type="checkbox" onClick={onToggleCompleted} />
+          <input className="toggle" type="checkbox" defaultChecked={completed} onClick={onToggleCompleted} />
           <label>
             <span className="title">{this.state.changedLabel}</span>
             <span className="description">
-              <button className="icon icon-play" onClick={this.handleStartClick}></button>
-              <button className="icon icon-pause" onClick={this.handleStopClick}></button>
-              <p className="time">{format(this.state.time, 'mm:ss')}</p>
+              <button className="icon icon-play" onClick={this.props.startTimer}></button>
+              <button className="icon icon-pause" onClick={this.props.stopTimer}></button>
+              <p className="time">{format(time, 'mm:ss')}</p>
             </span>
             <span className="created">
               created
-              {formatDistanceToNow(this.state.date, { includeSeconds: true })}
+              {formatDistanceToNow(date, { includeSeconds: true })}
             </span>
           </label>
           <button className="icon icon-edit" onClick={this.onEdited}></button>
