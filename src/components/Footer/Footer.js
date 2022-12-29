@@ -23,9 +23,7 @@ const Footer = ({ todoCount, getFilterStatusFromFooter, removeAllCompletedTasks 
 export default Footer
 
 Footer.propTypes = {
-  toDo: PropTypes.number,
-  onfilterCompletedTasks: PropTypes.func,
-  onfilterAllTasks: PropTypes.func,
-  onfilterActiveTasks: PropTypes.func,
+  todoCount: PropTypes.number,
+  getFilterStatusFromFooter: PropTypes.func,
   removeAllCompletedTasks: PropTypes.func,
 }

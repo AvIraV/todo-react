@@ -32,6 +32,8 @@ TaskList.propTypes = {
   onDeleted: PropTypes.func,
   onToggleCompleted: PropTypes.func,
   onToggleEditing: PropTypes.func,
+  startTimer: PropTypes.func,
+  stopTimer: PropTypes.func,
 }
 
 export default TaskList
